@@ -9,10 +9,13 @@ public class GameManager : MonoBehaviour
     public float healthDepletionRate = 0.1f; // Rate at which health depletes
     public float gameOverThreshold = 0f; // Threshold at which the game is considered over
     public float fadeDuration = 0.5f; // Duration of fade in and fade out
+    public float fadeOutDelay = 1.0f; // Added delay before fading out
+
+    private float timeSinceDepletion; // Time since health started depleting
 
     private float currentHealth; // Current health value
-    private float timeSinceLastDepletion; // Time since health last depleted
     private CanvasGroup healthBarCanvasGroup; // Canvas group for fading health bar
+    [SerializeField] private bool isHealthDepleting; // Flag to track if health is currently depleting
 
     private void Start()
     {
@@ -24,17 +27,19 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Current Health: " + currentHealth);
-        // Fade in/out health bar based on time since last depletion
+        // Fade in/out health bar based on health depletion status
         FadeHealthBar();
     }
 
     public void ReduceHealth(float amount)
     {
+        // Set isHealthDepleting to true before reducing health
+        isHealthDepleting = true;
+        FadeHealthBar();
+
         // Reduce health when an arrow is missed or target position is pressed
         currentHealth -= amount;
         UpdateHealthBar();
-        timeSinceLastDepletion = 0f;
 
         // Check if health is depleted
         if (currentHealth <= gameOverThreshold)
@@ -43,7 +48,20 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0; // Pause the game
             gameOverUI.SetActive(true); // Show the game over UI
         }
+
+        // Reset timer
+        timeSinceDepletion = 0f;
+
+    // Delay setting isHealthDepleting to false
+    StartCoroutine(DelayResetIsHealthDepleting());
     }
+
+    private IEnumerator DelayResetIsHealthDepleting()
+    {
+        yield return new WaitForSeconds(1f); // Change delayTime to adjust the duration
+        isHealthDepleting = false;
+    }
+
 
     private void UpdateHealthBar()
     {
@@ -53,15 +71,20 @@ public class GameManager : MonoBehaviour
 
     private void FadeHealthBar()
     {
-        if (currentHealth > gameOverThreshold && timeSinceLastDepletion >= 0.5f && healthBarCanvasGroup.alpha > 0f)
+        if (isHealthDepleting)
         {
-            // Fade out health bar
+            // Health is depleting and health bar is faded in, fade out health bar
+            StartCoroutine(FadeCanvasGroup(healthBarCanvasGroup, healthBarCanvasGroup.alpha, 1f, fadeDuration));
+        }
+        else if (timeSinceDepletion >= fadeOutDelay)
+        {
+            // Health is not depleting and fade out delay has passed, fade out health bar
             StartCoroutine(FadeCanvasGroup(healthBarCanvasGroup, healthBarCanvasGroup.alpha, 0f, fadeDuration));
         }
-        else if (healthBarCanvasGroup.alpha < 1f)
+        else
         {
-            // Fade in health bar
-            StartCoroutine(FadeCanvasGroup(healthBarCanvasGroup, healthBarCanvasGroup.alpha, 1f, fadeDuration));
+            // Health is not depleting yet, increase timer
+            timeSinceDepletion += Time.deltaTime;
         }
     }
 
@@ -81,3 +104,4 @@ public class GameManager : MonoBehaviour
         canvasGroup.alpha = endAlpha;
     }
 }
+
