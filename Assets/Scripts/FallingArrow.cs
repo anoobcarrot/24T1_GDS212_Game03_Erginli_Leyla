@@ -22,6 +22,8 @@ public class FallingArrow : MonoBehaviour
     private static int consecutiveHits = 0; // Tracks the number of consecutive hits across all instances
     private static int comboCount = 0;
 
+    private GameManager gameManager;
+
     private void Start()
     {
         // Find the canvas in the scene
@@ -29,6 +31,8 @@ public class FallingArrow : MonoBehaviour
 
         // Calculate the random position near the top of the screen
         topScreenPosition = new Vector2(Random.Range(0f, Screen.width), Random.Range(Screen.height * 0.8f, Screen.height));
+
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -42,6 +46,9 @@ public class FallingArrow : MonoBehaviour
             // Miss hit
             InstantiateUIElement(missImage);
             Debug.Log("ya missed");
+            // deplete health
+            gameManager.ReduceHealth(0.01f);
+            Debug.Log("deplete health");
             ResetCombo();
             // Destroy the arrow if it's below the screen bounds
             Destroy(gameObject);

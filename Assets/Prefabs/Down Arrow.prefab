@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4533948516378614267}
   - component: {fileID: 6465298616765011893}
   - component: {fileID: 4287651264411172177}
+  - component: {fileID: 4643853271406164923}
   m_Layer: 3
   m_Name: Down Arrow
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6964161191439146364}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -155,3 +156,25 @@ MonoBehaviour:
   missImage: {fileID: 5524213951638614175, guid: 28d7ef67b7de44a7995bb082c88d8846, type: 3}
   comboImage: {fileID: 8675686456587215265, guid: bf587b357b2c04283a66f7d3505568af, type: 3}
   comboText: {fileID: 7851569363272348235, guid: bd818990b8e1b45a7a74772268b93b75, type: 3}
+  gameManager: {fileID: 2365545102950502985, guid: 8a2e9ee9fe98e48bbbd5c2f8d0937b52, type: 3}
+--- !u!95 &4643853271406164923
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964161191439146364}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3d673ec42dd7d4d00a9bba5a689119c3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
