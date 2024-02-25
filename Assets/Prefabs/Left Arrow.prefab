@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 32741199204431192}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6640602, y: 5.95, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -146,3 +146,12 @@ MonoBehaviour:
   fallSpeed: 5
   targetPosition: {fileID: 1517197156258222267, guid: 9bc64f5d8e7d54d38aa20dc7c4d403b2, type: 3}
   perfectThreshold: 0.1
+  greatThreshold: 0.4
+  earlyLateThreshold: 0.8
+  perfectImage: {fileID: 6084051663721475581, guid: cf1222b931f5346b6b415b1396ccce6c, type: 3}
+  greatImage: {fileID: 7763523303354333173, guid: 51d850dafbdde4d7195e26483b9c2d42, type: 3}
+  earlyImage: {fileID: 5534906842479865358, guid: 67c6645856b2d48cf803a7a593142f5f, type: 3}
+  lateImage: {fileID: 6685660323289250712, guid: 4cac49de341f94a99ae78442ab641c34, type: 3}
+  missImage: {fileID: 5524213951638614175, guid: 28d7ef67b7de44a7995bb082c88d8846, type: 3}
+  comboImage: {fileID: 8675686456587215265, guid: bf587b357b2c04283a66f7d3505568af, type: 3}
+  comboText: {fileID: 7851569363272348235, guid: bd818990b8e1b45a7a74772268b93b75, type: 3}

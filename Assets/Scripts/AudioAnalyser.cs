@@ -50,7 +50,7 @@ public class AudioAnalyser : MonoBehaviour
         if (IsBeatDetected())
         {
             // Log the beat
-            Debug.Log("Beat detected at time: " + Time.time);
+            // Debug.Log("Beat detected at time: " + Time.time);
 
             // Reset beat timer
             beatTimer = beatCooldown;
