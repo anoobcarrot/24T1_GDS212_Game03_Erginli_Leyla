@@ -23,16 +23,24 @@ public class FallingArrow : MonoBehaviour
     private static int comboCount = 0;
 
     private GameManager gameManager;
+    private ScoreManager scoreManager;
+
+    public string canvasName = "Words Canvas";
 
     private void Start()
     {
-        // Find the canvas in the scene
-        canvas = FindObjectOfType<Canvas>();
+        canvas = GameObject.Find(canvasName).GetComponent<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("Canvas with name " + canvasName + " not found.");
+            return;
+        }
 
         // Calculate the random position near the top of the screen
         topScreenPosition = new Vector2(Random.Range(0f, Screen.width), Random.Range(Screen.height * 0.8f, Screen.height));
 
         gameManager = FindObjectOfType<GameManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     private void Update()
@@ -74,7 +82,7 @@ public class FallingArrow : MonoBehaviour
             // Start the combo
             comboCount++;
             comboText.text = comboCount.ToString();
-            ScoreManager.Instance.AddScore(5);
+            scoreManager.AddScore(5);
             Debug.Log("Combo Started! Combo Count: " + comboCount);
 
             // Instantiate combo image
@@ -99,19 +107,19 @@ public class FallingArrow : MonoBehaviour
         if (positionDifference <= perfectThreshold)
         {
             // Perfect hit
-            ScoreManager.Instance.AddScore(4);
+            scoreManager.AddScore(4);
             InstantiateUIElement(perfectImage);
         }
         else if (positionDifference <= greatThreshold)
         {
             // Great hit
-            ScoreManager.Instance.AddScore(2);
+            scoreManager.AddScore(2);
             InstantiateUIElement(greatImage);
         }
         else if (positionDifference <= earlyLateThreshold)
         {
             // Early or late hit
-            ScoreManager.Instance.AddScore(1);
+            scoreManager.AddScore(1);
 
             // Check if the arrow is early or late based on its y-position in world space
             if (transform.position.y > targetPosition.position.y)

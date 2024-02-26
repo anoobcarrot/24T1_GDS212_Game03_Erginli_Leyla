@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Player Input is starting");
         // Initialize array to store original sprites
         originalSprites = new Sprite[targetPositions.Length];
 
@@ -37,7 +38,7 @@ public class PlayerInput : MonoBehaviour
             // Check if the tap position is within the range of any target position
             foreach (Transform targetPosition in targetPositions)
             {
-                if (Vector2.Distance(touchPosition, targetPosition.position) < 1f) // Adjust the threshold as needed
+                if (Vector2.Distance(touchPosition, targetPosition.position) < 1f)
                 {
                     // Tap position is within range of a target position
                     RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero, Mathf.Infinity, arrowLayerMask);

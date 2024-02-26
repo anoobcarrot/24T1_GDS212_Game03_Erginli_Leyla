@@ -156,7 +156,7 @@ MonoBehaviour:
   missImage: {fileID: 5524213951638614175, guid: 28d7ef67b7de44a7995bb082c88d8846, type: 3}
   comboImage: {fileID: 8675686456587215265, guid: bf587b357b2c04283a66f7d3505568af, type: 3}
   comboText: {fileID: 7851569363272348235, guid: bd818990b8e1b45a7a74772268b93b75, type: 3}
-  gameManager: {fileID: 2365545102950502985, guid: 8a2e9ee9fe98e48bbbd5c2f8d0937b52, type: 3}
+  canvas: {fileID: 448334966006403134, guid: eb2a326b8b1c34b95b24e50fbba26564, type: 3}
 --- !u!95 &2224215221889011209
 Animator:
   serializedVersion: 5

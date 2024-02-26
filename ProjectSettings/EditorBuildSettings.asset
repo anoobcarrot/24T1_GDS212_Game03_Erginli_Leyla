@@ -5,10 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   - enabled: 1
-    path: Assets/Scenes/Game Scene.unity
-    guid: 15fa57499a0b844e1a86dafa466310f0
+    path: Assets/Scenes/Main Menu.unity
+    guid: 72aa5559fc8a34d61853425e1a92b78b
+  - enabled: 1
+    path: Assets/Scenes/Song Select.unity
+    guid: 557e307c17c184665a68da92b084bfcd
+  - enabled: 1
+    path: Assets/Scenes/Leaderboard.unity
+    guid: eb2e4075198a948e4bb5f4ea8995b634
+  - enabled: 1
+    path: Assets/Scenes/Thats The Way I Loved You Song.unity
+    guid: 9fbc9b7397e3e44c0a92e67956d7f1ca
   m_configObjects: {}

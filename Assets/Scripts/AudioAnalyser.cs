@@ -24,8 +24,9 @@ public class AudioAnalyser : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Audio Analyser is starting");
         // Initialise the AudioSource component and spectrumData array
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = musicClip;
         spectrumData = new float[sampleSize];
 
