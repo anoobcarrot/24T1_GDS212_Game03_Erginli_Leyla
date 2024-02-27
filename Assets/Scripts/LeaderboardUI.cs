@@ -35,7 +35,7 @@ public class LeaderboardUI : MonoBehaviour
         }
         else
         {
-            leaderboardText.text = "No leaderboard data available.";
+            leaderboardText.text = "There is currently no one on the leaderboard!";
         }
     }
 }

@@ -673,7 +673,7 @@ MonoBehaviour:
   - {fileID: 6559371392479316729}
   - {fileID: 6989600381018886889}
   startFrequency: 50
-  endFrequency: 150
+  endFrequency: 200
   fallSpeed: 5
 --- !u!114 &460726105
 MonoBehaviour:

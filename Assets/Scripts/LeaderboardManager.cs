@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dan.Main; // Include the Leaderboard Creator namespace
 
 public class LeaderboardManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LeaderboardManager : MonoBehaviour
 
     private List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
     private const int maxLeaderboardEntries = 10;
+    private string publicKey = "98390a283d0040b07613d18824e969758b3b208b49a84a41e3a0fa06261226b2";
 
     private void Awake()
     {
@@ -40,8 +42,18 @@ public class LeaderboardManager : MonoBehaviour
         SortLeaderboard();
         SaveLeaderboard();
 
-        // Debug log to check if score is added
-        Debug.Log("Score added: " + playerName + ", " + score);
+        // Upload the new entry to the leaderboard
+        LeaderboardCreator.UploadNewEntry(publicKey, playerName, score, (success) =>
+        {
+            if (success)
+            {
+                Debug.Log("Score added: " + playerName + ", " + score);
+            }
+            else
+            {
+                Debug.LogError("Failed to add score: " + playerName + ", " + score);
+            }
+        });
     }
 
     private void SortLeaderboard()
@@ -55,29 +67,21 @@ public class LeaderboardManager : MonoBehaviour
 
     private void LoadLeaderboard()
     {
-        leaderboardEntries.Clear();
-        for (int i = 0; i < maxLeaderboardEntries; i++)
+        // Retrieve the leaderboard entries from the Leaderboard Creator
+        LeaderboardCreator.GetLeaderboard(publicKey, (entries) =>
         {
-            string playerName = PlayerPrefs.GetString($"PlayerName_{i}", "");
-            int score = PlayerPrefs.GetInt($"Score_{i}", 0);
-            if (!string.IsNullOrEmpty(playerName) && score > 0)
+            leaderboardEntries = entries.Select(entry =>
             {
-                leaderboardEntries.Add(new LeaderboardEntry(playerName, score));
-            }
-        }
+                return new LeaderboardEntry(entry.Username, entry.Score);
+            }).ToList();
 
-        // Debug log to check if leaderboard data is loaded
-        Debug.Log("Leaderboard loaded. Entries count: " + leaderboardEntries.Count);
+            Debug.Log("Leaderboard loaded. Entries count: " + leaderboardEntries.Count);
+        });
     }
 
     private void SaveLeaderboard()
     {
-        for (int i = 0; i < leaderboardEntries.Count; i++)
-        {
-            PlayerPrefs.SetString($"PlayerName_{i}", leaderboardEntries[i].PlayerName);
-            PlayerPrefs.SetInt($"Score_{i}", leaderboardEntries[i].Score);
-        }
-        PlayerPrefs.Save();
+        // No need to save locally since the leaderboard is managed by the Leaderboard Creator
     }
 }
 
@@ -93,6 +97,8 @@ public class LeaderboardEntry
         Score = score;
     }
 }
+
+
 
 
 
