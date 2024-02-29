@@ -17,6 +17,7 @@ public class AudioAnalyser : MonoBehaviour
     private float beatTimer = 0f;
     private float lastBeatTime = 0f;
     private bool isAudioPlaying = false;
+    private bool isPaused = false;
 
     private PlayerInput playerInput;
     private GameManager gameManager;
@@ -83,7 +84,7 @@ public class AudioAnalyser : MonoBehaviour
             beatTimer -= Time.deltaTime;
         }
 
-        if (isAudioPlaying && !audioSource.isPlaying && currentHealth > 0)
+        if (isAudioPlaying && !audioSource.isPlaying && !isPaused && currentHealth > 0)
         {
             // The audio has stopped playing, show the submit score panel
             playerInput.SetCanInteract(false);
@@ -152,6 +153,18 @@ public class AudioAnalyser : MonoBehaviour
             // Stop the audio source from playing
             audioSource.Stop();
         }
+    }
+
+    public void PauseAudio()
+    {
+        audioSource.Pause();
+        isPaused = true;
+}
+
+    public void ResumeAudio()
+    {
+        audioSource.UnPause();
+        isPaused = false;
     }
 }
 
