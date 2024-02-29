@@ -1,14 +1,21 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private LayerMask arrowLayerMask; // Set this in the inspector to only detect arrows
     [SerializeField] private Transform[] targetPositions; // Array of target positions
     [SerializeField] private Sprite[] newSprites; // Array of new sprites for each target position
+    [SerializeField] private AudioClip correctSound; // Audio clip for correct interaction
+    [SerializeField] private AudioClip wrongSound; // Audio clip for wrong interaction
 
     private Sprite[] originalSprites; // Array to store original sprites for reverting
 
     private GameManager gameManager;
+    private List<FallingArrow> activeFallingArrows = new List<FallingArrow>();
+    private AudioSource audioSource;
+
+    private bool canInteract = true;
 
     private void Start()
     {
@@ -17,6 +24,7 @@ public class PlayerInput : MonoBehaviour
         originalSprites = new Sprite[targetPositions.Length];
 
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
 
         // Store original sprites for each target position
         for (int i = 0; i < targetPositions.Length; i++)
@@ -29,8 +37,22 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    private void UpdateActiveFallingArrows()
+    {
+        activeFallingArrows.Clear(); // Clear the list
+        activeFallingArrows.AddRange(FindObjectsOfType<FallingArrow>()); // Add all active instances
+    }
+
     private void Update()
     {
+        UpdateActiveFallingArrows();
+        Debug.Log("Active Falling Arrows: " + activeFallingArrows.Count);
+        if (!canInteract)
+        {
+            // If interaction is disabled, return without processing input
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -50,16 +72,38 @@ public class PlayerInput : MonoBehaviour
                         if (fallingArrow != null)
                         {
                             fallingArrow.OnArrowHit();
+
+                            // Play the correct sound audio
+                            if (correctSound != null)
+                            {
+                                audioSource.PlayOneShot(correctSound);
+                            }
                         }
                     }
                     else
                     {
                         // No arrow hit, reduce health in the GameManager
+
+                        // Play the wrong sound audio
+                        if (wrongSound != null)
+                        {
+                            audioSource.PlayOneShot(wrongSound);
+                        }
+
                         gameManager.ReduceHealth(0.01f);
+
+                        foreach (FallingArrow fallingArrow in activeFallingArrows)
+                        {
+                            if (fallingArrow != null)
+                            {
+                                fallingArrow.ResetCombo();
+                            }
+                        }
                     }
 
-                    // Change target sprite to new sprite corresponding to the target position
-                    int index = System.Array.IndexOf(targetPositions, targetPosition);
+
+                        // Change target sprite to new sprite corresponding to the target position
+                        int index = System.Array.IndexOf(targetPositions, targetPosition);
                     if (index != -1 && index < newSprites.Length)
                     {
                         SpriteRenderer spriteRenderer = targetPosition.GetComponent<SpriteRenderer>();
@@ -103,7 +147,13 @@ public class PlayerInput : MonoBehaviour
             }
         }
     }
-}
+
+        public void SetCanInteract(bool value)
+        {
+            canInteract = value;
+        }
+    }
+
 
 
 

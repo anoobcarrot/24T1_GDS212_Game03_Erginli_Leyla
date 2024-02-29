@@ -51,8 +51,12 @@ public class FallingArrow : MonoBehaviour
         // Check if the arrow is below the screen bounds
         if (IsBelowScreen())
         {
+            float minYPosition = 540;
+            float maxYPosition = 1070;
+            float minXPosition = -280;
+            float maxXPosition = 590;
             // Miss hit
-            InstantiateUIElement(missImage);
+            InstantiateUIElement(missImage, minXPosition, maxXPosition, minYPosition, maxYPosition);
             Debug.Log("ya missed");
             // deplete health
             gameManager.ReduceHealth(0.01f);
@@ -79,6 +83,10 @@ public class FallingArrow : MonoBehaviour
 
         if (consecutiveHits >= 5)
         {
+            float minYPosition = 540;
+            float maxYPosition = 1070;
+            float minXPosition = -280;
+            float maxXPosition = 590;
             // Start the combo
             comboCount++;
             comboText.text = comboCount.ToString();
@@ -86,11 +94,11 @@ public class FallingArrow : MonoBehaviour
             Debug.Log("Combo Started! Combo Count: " + comboCount);
 
             // Instantiate combo image
-            InstantiateUIElement(comboImage);
+            InstantiateUIElement(comboImage, minXPosition, maxXPosition, minYPosition, maxYPosition);
         }
     }
 
-    private void ResetCombo()
+    public void ResetCombo()
     {
         consecutiveHits = 0; // Reset consecutive hits
         comboCount = 0; // Reset combo count
@@ -104,17 +112,23 @@ public class FallingArrow : MonoBehaviour
 
         IncrementCombo();
 
+        // Set minimum and maximum Y positions for UI element spawning
+        float minYPosition = 540;
+        float maxYPosition = 1070;
+        float minXPosition = -280;
+        float maxXPosition = 590;
+
         if (positionDifference <= perfectThreshold)
         {
             // Perfect hit
             scoreManager.AddScore(4);
-            InstantiateUIElement(perfectImage);
+            InstantiateUIElement(perfectImage, minXPosition, maxXPosition, minYPosition, maxYPosition);
         }
         else if (positionDifference <= greatThreshold)
         {
             // Great hit
             scoreManager.AddScore(2);
-            InstantiateUIElement(greatImage);
+            InstantiateUIElement(greatImage, minXPosition, maxXPosition, minYPosition, maxYPosition);
         }
         else if (positionDifference <= earlyLateThreshold)
         {
@@ -125,12 +139,12 @@ public class FallingArrow : MonoBehaviour
             if (transform.position.y > targetPosition.position.y)
             {
                 // Early hit
-                InstantiateUIElement(earlyImage);
+                InstantiateUIElement(earlyImage, minXPosition, maxXPosition, minYPosition, maxYPosition);
             }
             else
             {
                 // Late hit
-                InstantiateUIElement(lateImage);
+                InstantiateUIElement(lateImage, minXPosition, maxXPosition, minYPosition, maxYPosition);
             }
         }
 
@@ -138,12 +152,16 @@ public class FallingArrow : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void InstantiateUIElement(Image imagePrefab)
+
+    public void InstantiateUIElement(Image imagePrefab, float minXPosition, float maxXPosition, float minYPosition, float maxYPosition)
     {
+        // Calculate a random Y position within the specified range
+        float randomYPosition = Random.Range(minYPosition, maxYPosition);
+        float randomXPosition = Random.Range(minXPosition, maxXPosition);
+
         // Instantiate the UI image element on the canvas
         Image newImage = Instantiate(imagePrefab, canvas.transform);
-        Vector2 nonOverlappingPosition = CalculateNonOverlappingPosition(topScreenPosition, newImage.rectTransform.rect.size);
-        newImage.rectTransform.position = nonOverlappingPosition;
+        newImage.rectTransform.anchoredPosition = new Vector2(randomXPosition, randomYPosition);
 
         // Destroy the instantiated image after 1 second
         Destroy(newImage.gameObject, 1f);

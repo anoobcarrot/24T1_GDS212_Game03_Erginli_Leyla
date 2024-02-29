@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9527a44ee71b74e79bfce364133bfffa
+guid: 7c70b4d56974141c691e5085bd060758
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -157,14 +157,14 @@ TextureImporter:
         width: 48
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e902cef5b6af147ccbe13baa6f367918
-      internalID: 1342546247
+      spriteID: 6046c5268dbf240aa8da747b270e540f
+      internalID: -611484042
       vertices: []
       indices: 
       edges: []
@@ -178,14 +178,14 @@ TextureImporter:
         width: 48
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05bb779ec6c4d498581c4e13214d5b4f
-      internalID: 802270631
+      spriteID: 1c7b431481bbf43c699e7e7245cd32dc
+      internalID: -1948060849
       vertices: []
       indices: 
       edges: []
@@ -199,14 +199,14 @@ TextureImporter:
         width: 48
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 507b2848dfe9d441090192aeabcef5d0
-      internalID: 1021602390
+      spriteID: 5078ffd9760394d468d0e4808bb5f7ff
+      internalID: 1963462256
       vertices: []
       indices: 
       edges: []
@@ -222,9 +222,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Penguin_0: 1342546247
-      Penguin_1: 802270631
-      Penguin_2: 1021602390
+      Penguin_0: -611484042
+      Penguin_1: -1948060849
+      Penguin_2: 1963462256
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

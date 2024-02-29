@@ -6,15 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
+    path: Assets/Scenes/Main Menu Scenes/Main Menu.unity
     guid: 72aa5559fc8a34d61853425e1a92b78b
   - enabled: 1
-    path: Assets/Scenes/Song Select.unity
+    path: Assets/Scenes/Main Menu Scenes/Song Select.unity
     guid: 557e307c17c184665a68da92b084bfcd
   - enabled: 1
-    path: Assets/Scenes/Leaderboard.unity
+    path: Assets/Scenes/Main Menu Scenes/Tutorial.unity
+    guid: 889a17663de3c461cb8ea174541bd041
+  - enabled: 1
+    path: Assets/Scenes/Main Menu Scenes/Leaderboard.unity
     guid: eb2e4075198a948e4bb5f4ea8995b634
   - enabled: 1
-    path: Assets/Scenes/Thats The Way I Loved You Song.unity
+    path: Assets/Scenes/Song Scenes/Thats The Way I Loved You Song.unity
     guid: 9fbc9b7397e3e44c0a92e67956d7f1ca
+  - enabled: 1
+    path: Assets/Scenes/Song Scenes/Hold On Song.unity
+    guid: 57dc5f26b2e7c4652ab4e7f01af8cd9e
   m_configObjects: {}

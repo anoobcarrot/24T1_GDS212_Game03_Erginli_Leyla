@@ -40,7 +40,7 @@ public class LeaderboardManager : MonoBehaviour
         LeaderboardEntry entry = new LeaderboardEntry(playerName, score);
         leaderboardEntries.Add(entry);
         SortLeaderboard();
-        SaveLeaderboard();
+        // SaveLeaderboard();
 
         // Upload the new entry to the leaderboard
         LeaderboardCreator.UploadNewEntry(publicKey, playerName, score, (success) =>
@@ -79,10 +79,17 @@ public class LeaderboardManager : MonoBehaviour
         });
     }
 
-    private void SaveLeaderboard()
-    {
-        // No need to save locally since the leaderboard is managed by the Leaderboard Creator
-    }
+    // Method to update the leaderboard during runtime
+    // public void UpdateLeaderboard()
+    // {
+    //     // Call LoadLeaderboard again to refresh the leaderboard
+    //     LoadLeaderboard();
+    // }
+
+    // private void SaveLeaderboard()
+    // {
+        
+    // }
 }
 
 [Serializable]

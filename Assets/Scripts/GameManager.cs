@@ -14,19 +14,42 @@ public class GameManager : MonoBehaviour
     public float fadeOutDelay = 1.0f; // Added delay before fading out
     public string sceneName; // Name of the scene to reload
 
+    private AudioAnalyser audioAnalyser;
+    private AudioSource gameOverAudioSource;
+    public AudioClip gameoverAudioSource;
+
     private float timeSinceDepletion; // Time since health started depleting
     private float currentHealth; // Current health value
     private CanvasGroup healthBarCanvasGroup; // Canvas group for fading health bar
     private bool isHealthDepleting; // Flag to track if health is currently depleting
+    private bool isGameOver = false;
+
+    private PlayerInput playerInput;
 
     private void Start()
     {
+        audioAnalyser = FindObjectOfType<AudioAnalyser>();
+        gameOverAudioSource = gameObject.GetComponent<AudioSource>();
+        // Find the PlayerInput component in the scene
+        playerInput = FindObjectOfType<PlayerInput>();
+
+        if (gameoverAudioSource != null)
+        {
+            gameOverAudioSource.clip = gameoverAudioSource;
+        }
+
+        if (playerInput == null)
+        {
+            Debug.LogError("PlayerInput component not found in the scene.");
+        }
         Debug.Log("Game Manager is starting");
         Time.timeScale = 1;
         currentHealth = 1f;
         UpdateHealthBar();
         healthBarCanvasGroup = healthBarFill.GetComponentInParent<CanvasGroup>();
         healthBarCanvasGroup.alpha = 0f; // Start with health bar faded out
+        isGameOver = false;
+        playerInput.SetCanInteract(true);
     }
 
     private void Update()
@@ -46,11 +69,21 @@ public class GameManager : MonoBehaviour
         UpdateHealthBar();
 
         // Check if health is depleted
-        if (currentHealth <= gameOverThreshold)
+        if (currentHealth <= gameOverThreshold && !isGameOver)
         {
             // Game over
             Time.timeScale = 0; // Pause the game
+            playerInput.SetCanInteract(false);
             submitScoreQuestionPanel.SetActive(true); // Show the game over UI
+            isGameOver = true;
+
+            audioAnalyser.StopAudioSource();
+
+            // Play game over sound
+            if (gameoverAudioSource != null)
+            {
+                gameOverAudioSource.Play();
+            }
         }
 
         // Reset timer
@@ -118,6 +151,11 @@ public class GameManager : MonoBehaviour
         }
 
         canvasGroup.alpha = endAlpha;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }
 
