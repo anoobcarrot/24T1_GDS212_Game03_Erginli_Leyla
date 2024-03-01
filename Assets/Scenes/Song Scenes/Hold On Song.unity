@@ -3454,7 +3454,7 @@ MonoBehaviour:
   gameOverThreshold: 0
   fadeDuration: 0.5
   fadeOutDelay: 1
-  sceneName: Thats The Way I Loved You Song
+  sceneName: Hold On Song
   gameoverAudioSource: {fileID: 8300000, guid: 2001223c96d8b4e80b82616c95dd31f4, type: 3}
 --- !u!4 &4151096506995780582
 Transform:
